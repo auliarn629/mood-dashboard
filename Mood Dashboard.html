@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Dashboard | Aulia Rahman</title>
+    <!-- Font & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS: Mobile & Wallpaper Optimized --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Background menggunakan gambar vertikal agar pas di layar HP */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1477346611705-65d1883cee1e?auto=format&fit=crop&q=80&w=1000') no-repeat center center/cover;
+            color: white;
+            padding: 15px;
+            overflow: hidden;
+        }
+
+        .dashboard-container {
+            width: 100%;
+            max-width: 400px;
+            height: 90vh; /* Mengisi layar secara vertikal */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 40px;
+            /* Efek Glassmorphism */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Seksi Jam */
+        #clock {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-top: 10px;
+        }
+
+        #date {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin-top: -5px;
+        }
+
+        #greeting {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin: 15px 0;
+            opacity: 0.9;
+        }
+
+        /* Seksi Kutipan */
+        .quote-container {
+            padding: 20px;
+            font-style: italic;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #quote-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        #quote-author {
+            font-size: 0.75rem;
+            font-weight: 600;
+            opacity: 0.6;
+            text-transform: uppercase;
+        }
+
+        /* Grid Tombol (Grid 2 Kolom) */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .quick-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 18px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .quick-link:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .quick-link i {
+            font-size: 1.4rem;
+        }
+
+        .footer-text {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            opacity: 0.4;
+            text-transform: uppercase;
+        }
+
+        /* Status Online */
+        .online-status {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.7rem;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #4ade80;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="online-status">
+        <div class="dot"></div> Online
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Jam & Tanggal -->
+        <div>
+            <div id="clock">00:00</div>
+            <div id="date">MEMUAT TANGGAL...</div>
+        </div>
+        
+        <!-- Sapaan -->
+        <div id="greeting">Halo, Aulia Rahman</div>
+
+        <!-- Kutipan -->
+        <div class="quote-container">
+            <span id="quote-text">"Memuat motivasi hari ini..."</span>
+            <span id="quote-author"></span>
+        </div>
+
+        <!-- Tombol Sosial Media -->
+        <div class="links-grid">
+            <a href="https://instagram.com/aulia_rahmn777/" target="_blank" class="quick-link">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://github.com/auliarn629" target="_blank" class="quick-link">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="https://wa.me/6285262019468" target="_blank" class="quick-link">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="#" class="quick-link">
+                <i class="fas fa-globe"></i> Website
+            </a>
+        </div>
+
+        <div class="footer-text">Aulia Rahman</div>
+    </div>
+
+    <!-- Firebase SDK (Hanya diaktifkan jika benar-benar akan dideploy ke hosting) -->
+    <script type="module">
+        /* CATATAN UNTUK PUBLIKASI: 
+           Untuk menjadikan web ini online sepenuhnya:
+           1. Upload file index.html ke GitHub Repository.
+           2. Aktifkan GitHub Pages di settings repository.
+           3. Dashboard Anda akan memiliki URL unik (username.github.io/repo-name).
+        */
+
+        function updateDashboard() {
+            const now = new Date();
+            
+            // Update Jam
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
+
+            // Update Tanggal
+            const options = { weekday: 'long', day: 'numeric', month: 'long' };
+            document.getElementById('date').textContent = now.toLocaleDateString('id-ID', options);
+
+            // Update Sapaan
+            updateGreeting(now.getHours());
+        }
+
+        function updateGreeting(hours) {
+            let message = "";
+            const name = "Aulia Rahman"; 
+
+            if (hours >= 5 && hours < 11) message = `Selamat Pagi, ${name}`;
+            else if (hours >= 11 && hours < 15) message = `Selamat Siang, ${name}`;
+            else if (hours >= 15 && hours < 18) message = `Selamat Sore, ${name}`;
+            else message = `Selamat Malam, ${name}`;
+            
+            document.getElementById('greeting').textContent = message;
+        }
+
+        const quotes = [
+            { text: "Kesenangan dalam pekerjaan memberikan kesempurnaan.", author: "Aristoteles" },
+            { text: "Cara terbaik memprediksi masa depan adalah menciptakannya.", author: "Peter Drucker" },
+            { text: "Jangan berhenti ketika lelah. Berhentilah ketika selesai.", author: "Unknown" },
+            { text: "Kode adalah puisi yang ditulis untuk mesin.", author: "Aulia Rahman" },
+            { text: "Dunia online hanyalah kanvas besar untuk imajinasi Anda.", author: "Aulia Rahman" }
+        ];
+
+        function displayRandomQuote() {
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quote-text').textContent = `"${quote.text}"`;
+            document.getElementById('quote-author').textContent = `- ${quote.author}`;
+        }
+
+        // Jalankan fungsi
+        setInterval(updateDashboard, 1000);
+        updateDashboard();
+        displayRandomQuote();
+    </script>
+</body>
+</html>
